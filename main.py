@@ -2,6 +2,7 @@ import pyclip
 
 
 def generate_apa_citation():
+
     '''
     Given user input, generate the apa 7th style citation in Markdown version.
     Note that the title of the book should be italic in apa. And in Markdown italic text is represented with "*[text]*".
@@ -18,11 +19,14 @@ def generate_apa_citation():
 
     publication_year = input("Enter the publication year: ").strip()
     edition = input("Enter the edition number: ").strip()
-    pageNum = input("Enter the pageNumber(e.g. 139-204): ").strip()
+    pageNum = input("Enter the pageNumber(E.g., 139-204): ").strip()
     publisher = input("Enter the publisher's name: ").strip()
 
     authors = author_names.split(', ')
-    formatted_authors = ', '.join(authors[:-1]) + ' & ' + authors[-1] # A [-1] provides the last element of the list.
+    if len(authors) == 1:
+        formatted_authors = authors[0]
+    else:
+        formatted_authors = ', '.join(authors[:-1]) + ' & ' + authors[-1] # A [-1] provides the last element of the list.
 
     if not subTitle == "":
         subTitle = ": " + subTitle # XXX: AAAA
@@ -50,8 +54,12 @@ def generate_apa_citation():
     else:
         pass
 
+    if chapter is not "":
+        chapter = " " + chapter + ". "
+    else:
+        chapter = " "
 
-    citation = f"{formatted_authors}. ({publication_year}). {chapter}. *{title}{subTitle}* {edition_and_pageNum_part}. {publisher}."
+    citation = f"{formatted_authors}. ({publication_year}).{chapter}*{title}{subTitle}* {edition_and_pageNum_part}. {publisher}."
 
     return citation
 
